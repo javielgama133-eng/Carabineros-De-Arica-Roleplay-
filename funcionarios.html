@@ -1,0 +1,445 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#123b2b">
+  <title>Personal | Carabineros Arica RP</title>
+
+  <style>
+    :root {
+      --green: #123b2b;
+      --green2: #1c513b;
+      --gold: #d5b66b;
+      --bg: #f4f5f1;
+      --white: #fff;
+      --text: #202d25;
+      --muted: #69766d;
+      --border: #e0e5df;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 14px Arial, sans-serif;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    header {
+      background: var(--green);
+      color: white;
+      border-bottom: 3px solid var(--gold);
+    }
+
+    .top {
+      max-width: 1180px;
+      margin: auto;
+      padding: 20px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .brand { font-size: 18px; font-weight: 800; }
+    .sub { font-size: 11px; color: #d9e3da; margin-top: 5px; letter-spacing: 1px; }
+    nav { display: flex; flex-wrap: wrap; gap: 18px; }
+    nav a { color: white; font-size: 13px; }
+    nav a:hover { color: var(--gold); }
+
+    .hero {
+      background: linear-gradient(115deg, #123b2b, #286044);
+      color: white;
+      padding: 36px 24px;
+    }
+
+    .hero-inner, main, footer {
+      max-width: 1180px;
+      margin: auto;
+    }
+
+    .eyebrow {
+      color: var(--gold);
+      text-transform: uppercase;
+      font-size: 11px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    h1 { font-size: 34px; margin: 10px 0; }
+    .hero p { color: #e1e9e1; margin-bottom: 0; }
+
+    main { padding: 28px 24px 55px; }
+
+    .notice {
+      background: #fff8e5;
+      border: 1px solid #e9d7a6;
+      color: #6d5521;
+      border-radius: 6px;
+      padding: 13px 15px;
+      margin-bottom: 22px;
+      line-height: 1.5;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .stat, .panel {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    .stat { padding: 18px; }
+    .stat strong { display: block; font-size: 25px; color: var(--green); }
+    .stat span { color: var(--muted); font-size: 12px; }
+
+    .panel { padding: 22px; }
+    .panel h2 { font-size: 19px; color: var(--green); margin: 0 0 6px; }
+    .muted { color: var(--muted); }
+
+    .filters {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #d5ddd5;
+      border-radius: 5px;
+      background: white;
+      color: var(--text);
+      font-size: 13px;
+    }
+
+    input:focus, select:focus {
+      outline: 2px solid #9bbca5;
+      outline-offset: 1px;
+    }
+
+    .table-wrap { overflow-x: auto; }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    th {
+      background: #f3f5f1;
+      color: #536258;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+
+    th, td {
+      padding: 15px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    td { font-size: 13px; }
+    tbody tr:hover { background: #f8faf7; }
+
+    .person { display: flex; align-items: center; gap: 10px; }
+    .avatar {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #e5ede5;
+      color: var(--green);
+      font-weight: bold;
+    }
+
+    .name { font-weight: bold; }
+    .id { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+    .status {
+      display: inline-block;
+      border-radius: 20px;
+      padding: 5px 9px;
+      font-size: 11px;
+      font-weight: bold;
+    }
+
+    .active { background: #e1f2e5; color: #24683b; }
+    .training { background: #fff0cf; color: #805c0d; }
+    .leave { background: #e9eaf0; color: #525a6d; }
+
+    .empty { text-align: center; padding: 35px; color: var(--muted); }
+    .count { color: var(--muted); font-size: 12px; margin-top: 16px; }
+
+    footer {
+      padding: 22px 24px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    @media (max-width: 700px) {
+      .top { align-items: flex-start; flex-direction: column; }
+      .stats { grid-template-columns: 1fr; }
+      .filters { grid-template-columns: 1fr; }
+      h1 { font-size: 28px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="top">
+      <div>
+        <div class="brand">CARABINEROS ARICA RP</div>
+        <div class="sub">PORTAL DE LA COMUNIDAD · PERSONAL</div>
+      </div>
+
+      <nav>
+        <a href="index.html">Inicio</a>
+        <a href="funcionarios.html">Funcionarios</a>
+        <a href="index.html#servicios">Secciones</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">Gestión de personal · Roleplay</div>
+      <h1>Registro de funcionarios</h1>
+      <p>Consulta el personal ficticio registrado en nuestra comunidad.</p>
+    </div>
+  </section>
+
+  <main>
+    <div class="notice">
+      <strong>Versión de demostración.</strong>
+      Los funcionarios que aparecen aquí son ejemplos ficticios.
+      Este listado todavía no está conectado a una base de datos y no permite
+      registrar cambios permanentes. No introduzcas datos personales reales.
+    </div>
+
+    <section class="stats">
+      <div class="stat">
+        <strong id="total">0</strong>
+        <span>Registros de ejemplo</span>
+      </div>
+      <div class="stat">
+        <strong id="activos">0</strong>
+        <span>En servicio en los ejemplos</span>
+      </div>
+      <div class="stat">
+        <strong id="unidades">0</strong>
+        <span>Unidades representadas</span>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Directorio del personal</h2>
+      <p class="muted">Busca por nombre, identificador, grado o unidad.</p>
+
+      <div class="filters">
+        <input id="search" type="search"
+          placeholder="Buscar funcionario..."
+          aria-label="Buscar funcionario">
+
+        <select id="unit" aria-label="Filtrar por unidad">
+          <option value="">Todas las unidades</option>
+        </select>
+
+        <select id="statusFilter" aria-label="Filtrar por estado">
+          <option value="">Todos los estados</option>
+          <option value="En servicio">En servicio</option>
+          <option value="En formación">En formación</option>
+          <option value="Inactivo">Inactivo</option>
+        </select>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Funcionario</th>
+              <th>Grado</th>
+              <th>Unidad</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody id="staff"></tbody>
+        </table>
+      </div>
+
+      <div class="count" id="count" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer>
+    <strong>CARABINEROS ARICA RP</strong>
+    <p>Plataforma independiente de una comunidad ficticia de roleplay.</p>
+    <p>© <span id="year"></span> · Todos los registros de esta demostración son ficticios.</p>
+  </footer>
+
+  <script>
+    // DATOS FICTICIOS DE DEMOSTRACIÓN.
+    // Este listado no es un registro oficial ni una base de datos.
+    const funcionarios = [
+      {
+        id: "DEMO-001",
+        nombre: "Alex Ejemplo",
+        grado: "Funcionario de ejemplo",
+        unidad: "Administración",
+        estado: "En servicio"
+      },
+      {
+        id: "DEMO-002",
+        nombre: "Sam Ejemplo",
+        grado: "Postulante de ejemplo",
+        unidad: "Escuela",
+        estado: "En formación"
+      },
+      {
+        id: "DEMO-003",
+        nombre: "Taylor Ejemplo",
+        grado: "Funcionario de ejemplo",
+        unidad: "Patrullaje",
+        estado: "Inactivo"
+      }
+    ];
+
+    const search = document.getElementById("search");
+    const unit = document.getElementById("unit");
+    const statusFilter = document.getElementById("statusFilter");
+    const staff = document.getElementById("staff");
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+    function initials(name) {
+      return name.split(" ")
+        .slice(0, 2)
+        .map(word => word[0])
+        .join("")
+        .toUpperCase();
+    }
+
+    function fillUnits() {
+      const units = [...new Set(funcionarios.map(p => p.unidad))];
+
+      units.forEach(name => {
+        const option = document.createElement("option");
+        option.value = name;
+        option.textContent = name;
+        unit.appendChild(option);
+      });
+    }
+
+    function render() {
+      const query = search.value.trim().toLowerCase();
+
+      const filtered = funcionarios.filter(person => {
+        const matchesQuery = [
+          person.id, person.nombre, person.grado, person.unidad
+        ].some(value => value.toLowerCase().includes(query));
+
+        const matchesUnit =
+          !unit.value || person.unidad === unit.value;
+
+        const matchesStatus =
+          !statusFilter.value || person.estado === statusFilter.value;
+
+        return matchesQuery && matchesUnit && matchesStatus;
+      });
+
+      document.getElementById("total").textContent =
+        funcionarios.length;
+
+      document.getElementById("activos").textContent =
+        funcionarios.filter(p => p.estado === "En servicio").length;
+
+      document.getElementById("unidades").textContent =
+        new Set(funcionarios.map(p => p.unidad)).size;
+
+      staff.replaceChildren();
+
+      if (filtered.length === 0) {
+        const row = document.createElement("tr");
+        const cell = document.createElement("td");
+        cell.colSpan = 4;
+        cell.className = "empty";
+        cell.textContent = "No se encontraron funcionarios.";
+        row.appendChild(cell);
+        staff.appendChild(row);
+      } else {
+        filtered.forEach(person => {
+          const row = document.createElement("tr");
+
+          const personCell = document.createElement("td");
+          const wrapper = document.createElement("div");
+          wrapper.className = "person";
+
+          const avatar = document.createElement("div");
+          avatar.className = "avatar";
+          avatar.textContent = initials(person.nombre);
+
+          const info = document.createElement("div");
+          const name = document.createElement("div");
+          name.className = "name";
+          name.textContent = person.nombre;
+
+          const id = document.createElement("div");
+          id.className = "id";
+          id.textContent = person.id;
+
+          info.append(name, id);
+          wrapper.append(avatar, info);
+          personCell.appendChild(wrapper);
+          row.appendChild(personCell);
+
+          [person.grado, person.unidad].forEach(value => {
+            const cell = document.createElement("td");
+            cell.textContent = value;
+            row.appendChild(cell);
+          });
+
+          const stateCell = document.createElement("td");
+          const badge = document.createElement("span");
+          badge.className = "status " + ({
+            "En servicio": "active",
+            "En formación": "training",
+            "Inactivo": "leave"
+          }[person.estado] || "leave");
+
+          badge.textContent = person.estado;
+          stateCell.appendChild(badge);
+          row.appendChild(stateCell);
+
+          staff.appendChild(row);
+        });
+      }
+
+      document.getElementById("count").textContent =
+        `Mostrando ${filtered.length} de ${funcionarios.length} registros de ejemplo.`;
+    }
+
+    search.addEventListener("input", render);
+    unit.addEventListener("change", render);
+    statusFilter.addEventListener("change", render);
+
+    fillUnits();
+    render();
+  </script>
+</body>
+</html>
